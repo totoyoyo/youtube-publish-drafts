@@ -11,6 +11,7 @@
     // -----------------------------------------------------------------
     const MADE_FOR_KIDS = false; // true / false;
     const VISIBILITY = 'Unlisted'; // 'Public' / 'Private' / 'Unlisted'
+    const VIDEOS_COUNT = 15;
     // -----------------------------------------------------------------
     // ~ SORT PLAYLIST CONFIG
     // -----------------------------------------------------------------
@@ -217,9 +218,14 @@
 
     async function editableVideos() {
         let editable = [];
+        let count = VIDEOS_COUNT;
         for (let video of allVideos()) {
+            count -= 1;
             if ((await video.editDraftButton) !== null) {
                 editable = [...editable, video];
+            }
+            if (count <= 0) {
+                break;
             }
         }
         return editable;
